@@ -1,0 +1,26 @@
+{
+  "name": "failables",
+  "version": "1.0.0",
+  "description": "to protect against null and throwing errors",
+  "main": "src/failable.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pheasantpluckers/failables.git"
+  },
+  "keywords": [
+    "javascript",
+    "node"
+  ],
+  "author": "timcash@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pheasantpluckers/failables/issues"
+  },
+  "homepage": "https://github.com/pheasantpluckers/failables#readme",
+  "devDependencies": {
+    "jest": "^21.2.1"
+  }
+}
