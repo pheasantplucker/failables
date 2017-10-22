@@ -1,4 +1,5 @@
-const equal = require("assert").deepEqual;
+const equal = require('assert').deepEqual
+const { throws } = require('assert')
 const {
   success,
   failure,
@@ -6,30 +7,134 @@ const {
   isFailure,
   isSuccess,
   isEmpty,
+  isFailable,
   payload,
   meta,
-  kind
-} = require("./failable");
+  kind,
+  assertSuccess,
+  assertFailure,
+  assertEmpty
+} = require('./failable')
 
-test("should make a success", async () => {
-  const box = success("foo");
-  const data = payload(box);
-  equal(isSuccess(box), true);
-  equal(data, "foo");
-});
+describe('success', () => {
+  const box = success('foo')
+  it('should be a success', () => {
+    equal(isSuccess(box), true)
+  })
+  it('should not be a failure', () => {
+    equal(isFailure(box), false)
+  })
+  it('should not be empty', () => {
+    equal(isEmpty(box), false)
+  })
+  it('should have the correct payload', () => {
+    equal(payload(box), 'foo')
+  })
+  it('should have the correct meta', () => {
+    equal(meta(box), undefined)
+  })
+})
 
-test("should make a failure", async () => {
-  const box = failure("bad things");
-  const error = payload(box);
-  equal(isFailure(box), true);
-  equal(error, "bad things");
-});
+describe('failure', () => {
+  const error = failure('bad')
+  it('should not be a success', () => {
+    equal(isSuccess(error), false)
+  })
+  it('should be a failure', () => {
+    equal(isFailure(error), true)
+  })
+  it('should not be empty', () => {
+    equal(isEmpty(error), false)
+  })
+  it('should have the correct payload', () => {
+    equal(payload(error), 'bad')
+  })
+  it('should have the correct meta', () => {
+    equal(meta(error), undefined)
+  })
+})
 
-test("should make a empty that only takes meta as args", async () => {
-  const box = empty({ meta: 1 });
-  const nothing = payload(box);
-  const metadata = meta(box);
-  equal(isEmpty(box), true);
-  equal(nothing, undefined);
-  equal(metadata, { meta: 1 });
-});
+describe('empty', () => {
+  const missing = empty('meta')
+  it('should not be a success', () => {
+    equal(isSuccess(missing), false)
+  })
+  it('should not be a failure', () => {
+    equal(isFailure(missing), false)
+  })
+  it('should be empty', () => {
+    equal(isEmpty(missing), true)
+  })
+  it('should have no payload', () => {
+    equal(payload(missing), undefined)
+  })
+  it('should have the correct meta', () => {
+    equal(meta(missing), 'meta')
+  })
+})
+
+describe('isFailable', () => {
+  it('should pass a success', () => {
+    equal(isFailable(success()), true)
+  })
+  it('should pass a failure', () => {
+    equal(isFailable(failure()), true)
+  })
+  it('should pass an empty', () => {
+    equal(isFailable(empty()), true)
+  })
+  it('should fail a non-array', () => {
+    equal(isFailable({foo: 'bar'}), false)
+  })
+  it('should fail a non-failable array', () => {
+    equal(isFailable([4, 5, 6]), false)
+  })
+})
+
+describe('assertSuccess', () => {
+  it('should pass success', () => {
+    assertSuccess(success())
+  })
+  it('should fail failure', () => {
+    throws(() => assertSuccess(failure()))
+  })
+  it('should fail empty', () => {
+    throws(() => assertSuccess(empty()))
+  })
+  it('should pass success with correct payload', () => {
+    assertSuccess(success('foo'), 'foo')
+  })
+  it('should fail success with wrong payload', () => {
+    throws(() => assertSuccess(success('foo'), 'bar'))
+  })
+})
+
+describe('assertFailure', () => {
+  it('should fail success', () => {
+    throws(() => assertFailure(success()))
+  })
+  it('should pass failure', () => {
+    assertFailure(failure())
+  })
+  it('should fail empty', () => {
+    throws(() => assertFailure(empty()))
+  })
+  it('should pass failure with correct payload', () => {
+    assertFailure(failure('foo'), 'foo')
+  })
+  it('should fail failure with wrong payload', () => {
+    throws(() => assertFailure(failure('foo'), 'bar'))
+  })
+})
+
+describe('assertEmpty', () => {
+  it('should fail success', () => {
+    throws(() => assertEmpty(success()))
+  })
+  it('should fail failure', () => {
+    throws(() => assertSuccess(failure()))
+  })
+  it('should pass empty', () => {
+    assertEmpty(empty())
+  })
+})
