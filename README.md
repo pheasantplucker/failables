@@ -31,7 +31,7 @@ That's all there is to it.
 ```js
   success(payload, meta) // returns a success failable
   failure(payload, meta) // returns a failure failable
-  empty(meta) // returns an empty failable
+  empty(meta)            // returns an empty failable
 ```
 ## tests
 ```js
