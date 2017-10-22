@@ -4,7 +4,7 @@ Failables are a clean, consistent, async-friendly, network-friendly result type.
 
 Successful results are represented as failables of type `SUCCESS`, with the result stored in the payload.
 
-Empty results are neither success nor failure; they are represented as failables of type `EMPTY`, and of course have no payload.
+Empty results are neither success nor failure; they are represented as failables of type `EMPTY`, and of course have no payload.  Calling success without a payload will result in an empty failable (not a success).
 
 Instead of representing errors sometimes by a result code, sometimes by a magic number, and sometimes by throwing an exception, consistently represent errors as failables of type `FAILURE`, with the error message stored in the payload.
 
