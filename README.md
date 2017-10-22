@@ -27,4 +27,32 @@ That's all there is to it.
 ```
 
 # documentation
-`TBD`
+## creation
+```js
+  success(payload, meta) // returns a success failable
+  failure(payload, meta) // returns a failure failable
+  empty(meta) // returns an empty failable
+```
+## tests
+```js
+  isFailable(object)  // whether the object represents a failable
+  isSuccess(failable) // whether the failable is success
+  isFailure(failable) // whether the failable is failure
+  isEmpty(failable)   // whether the failable is empty
+```
+## elements
+```js
+  payload(failable) // extracts the failable's payload
+  meta(failable)    // extracts the failable's metadata
+```
+## list operations
+```js
+  anyFailed(list)    // whether any in the list failed
+  firstFailure(list) // the first failure in the list
+```
+## assertions
+```js
+  assertSuccess(failable, payload) // assert that the failable is success
+  assertFailure(failable, payload) // assert that the failable is failure
+  assertEmpty(failable)            // assert that the failable is empty
+```
