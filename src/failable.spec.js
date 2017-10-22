@@ -13,7 +13,9 @@ const {
   kind,
   assertSuccess,
   assertFailure,
-  assertEmpty
+  assertEmpty,
+  anyFailed,
+  firstFailure
 } = require('./failable')
 
 describe('success', () => {
@@ -136,5 +138,24 @@ describe('assertEmpty', () => {
   })
   it('should pass empty', () => {
     assertEmpty(empty())
+  })
+})
+
+describe('anyFailed', () => {
+  it('should return true if list contains a failure', () => {
+    const list = [success(), success(), empty(), failure()]
+    equal(anyFailed(list), true)
+  })
+  it('should return false if list contains no failures', () => {
+    const list = [success(), success(), empty(), empty()]
+    equal(anyFailed(list), false)
+  })
+})
+
+describe('firstFailure', () => {
+  it('should return the first failure', () => {
+    const list = [success(), failure('1'), empty(), failure('2')]
+    const first = firstFailure(list)
+    equal(payload(first), '1')
   })
 })

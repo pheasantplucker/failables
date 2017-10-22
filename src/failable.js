@@ -17,6 +17,9 @@ const isFailure = f => kind(f) === ERROR
 const isEmpty = f => kind(f) === EMPTY
 const isFailable = f => isSuccess(f) || isFailure(f) || isEmpty(f)
 
+const anyFailed = l => l.filter(isFailure).length > 0
+const firstFailure = l => l.filter(isFailure)[0]
+
 const assertSuccess = (f, p) => {
   equal(isSuccess(f), true)
   if (p) equal(payload(f), p)
@@ -42,5 +45,7 @@ module.exports = {
   isFailable,
   assertSuccess,
   assertFailure,
-  assertEmpty
+  assertEmpty,
+  anyFailed,
+  firstFailure
 }
