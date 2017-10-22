@@ -35,6 +35,10 @@ describe('success', () => {
   it('should have the correct meta', () => {
     equal(meta(box), undefined)
   })
+  it('should return empty if no payload is provided', () => {
+    const emptyBox = success()
+    equal(isEmpty(emptyBox), true)
+  })
 })
 
 describe('failure', () => {
@@ -77,7 +81,7 @@ describe('empty', () => {
 
 describe('isFailable', () => {
   it('should pass a success', () => {
-    equal(isFailable(success()), true)
+    equal(isFailable(success('')), true)
   })
   it('should pass a failure', () => {
     equal(isFailable(failure()), true)
@@ -95,7 +99,7 @@ describe('isFailable', () => {
 
 describe('assertSuccess', () => {
   it('should pass success', () => {
-    assertSuccess(success())
+    assertSuccess(success(''))
   })
   it('should fail failure', () => {
     throws(() => assertSuccess(failure()))
@@ -113,7 +117,7 @@ describe('assertSuccess', () => {
 
 describe('assertFailure', () => {
   it('should fail success', () => {
-    throws(() => assertFailure(success()))
+    throws(() => assertFailure(success('')))
   })
   it('should pass failure', () => {
     assertFailure(failure())
@@ -131,7 +135,7 @@ describe('assertFailure', () => {
 
 describe('assertEmpty', () => {
   it('should fail success', () => {
-    throws(() => assertEmpty(success()))
+    throws(() => assertEmpty(success('')))
   })
   it('should fail failure', () => {
     throws(() => assertSuccess(failure()))
@@ -143,11 +147,11 @@ describe('assertEmpty', () => {
 
 describe('anyFailed', () => {
   it('should return true if list contains a failure', () => {
-    const list = [success(), success(), empty(), failure()]
+    const list = [success(''), success(''), empty(), failure()]
     equal(anyFailed(list), true)
   })
   it('should return false if list contains no failures', () => {
-    const list = [success(), success(), empty(), empty()]
+    const list = [success(''), success(''), empty(), empty()]
     equal(anyFailed(list), false)
   })
 })
