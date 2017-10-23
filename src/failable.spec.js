@@ -79,6 +79,15 @@ describe('empty', () => {
   })
 })
 
+describe('payload', () => {
+  it('should return the payload of a failable', () => {
+    const data = 'I am a payload'
+    const failable = success(data)
+    const result = payload(failable)
+    equal(result, data)
+  })
+})
+
 describe('isFailable', () => {
   it('should pass a success', () => {
     equal(isFailable(success('')), true)
