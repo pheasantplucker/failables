@@ -35,6 +35,18 @@ const assertFailure = (f, p) => {
 
 const assertEmpty = f => equal(isEmpty(f), true)
 
+const makeItFailable = fn => {
+  return async (...args) => {
+    try {
+      const result = await fn.apply(this, args)
+      if (isFailable(result)) return result
+      return success(result)
+    } catch (err) {
+      return failure(err.toString())
+    }
+  }
+}
+
 module.exports = {
   kind,
   payload,
@@ -50,5 +62,6 @@ module.exports = {
   assertFailure,
   assertEmpty,
   anyFailed,
-  firstFailure
+  firstFailure,
+  makeItFailable
 }

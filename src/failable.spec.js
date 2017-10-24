@@ -15,7 +15,8 @@ const {
   assertFailure,
   assertEmpty,
   anyFailed,
-  firstFailure
+  firstFailure,
+  makeItFailable
 } = require('./failable')
 
 describe('success', () => {
@@ -170,5 +171,30 @@ describe('firstFailure', () => {
     const list = [success(), failure('1'), empty(), failure('2')]
     const first = firstFailure(list)
     equal(payload(first), '1')
+  })
+})
+
+describe('makeItFailable', () => {
+  it('should return failable when fn returns one', async () => {
+    const expected = success('hello')
+    const testFn = async () => expected
+    const stillFailable = makeItFailable(testFn)
+    const result = await stillFailable()
+    equal(result, expected)
+  })
+
+  it('should return failable when fn does not return one', async () => {
+    const expected = success('hello')
+    const testFn = async () => 'hello'
+    const nowFailable = makeItFailable(testFn)
+    const result = await nowFailable()
+    equal(result, expected)
+  })
+
+  it('should return a failable if the fn throws an error', async function () {
+    const testFn = () => Promise.reject('no work')
+    const failableFailure = makeItFailable(testFn)
+    const result = await failableFailure()
+    assertFailure(result, 'no work')
   })
 })
