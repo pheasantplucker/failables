@@ -56,3 +56,8 @@ That's all there is to it.
   assertFailure(failable, payload) // assert that the failable is failure
   assertEmpty(failable)            // assert that the failable is empty
 ```
+## utility
+```js
+  hydrate(failable) // returns an object with kind, payload, and meta fields
+```
+
