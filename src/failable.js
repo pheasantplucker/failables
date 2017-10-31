@@ -47,6 +47,27 @@ const makeItFailable = fn => {
   }
 }
 
+const clean = o => {
+  return Object.keys(o)
+    .filter(f => o[f] !== undefined)
+    .reduce((r, i) => Object.assign(r, {[i]: o[i]}), {})
+}
+
+const kindString = f => {
+  switch (kind(f)) {
+    case SUCCESS: return 'success'
+    case FAILURE: return 'failure'
+    case EMPTY: return 'empty'
+    default: return 'unknown'
+  }
+}
+
+const hydrate = f => clean({
+  kind: kindString(f),
+  payload: payload(f),
+  meta: meta(f)
+})
+
 module.exports = {
   kind,
   payload,
@@ -63,5 +84,6 @@ module.exports = {
   assertEmpty,
   anyFailed,
   firstFailure,
-  makeItFailable
+  makeItFailable,
+  hydrate
 }

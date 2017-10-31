@@ -16,7 +16,8 @@ const {
   assertEmpty,
   anyFailed,
   firstFailure,
-  makeItFailable
+  makeItFailable,
+  hydrate
 } = require('./failable')
 
 describe('success', () => {
@@ -40,6 +41,9 @@ describe('success', () => {
     const emptyBox = success()
     equal(isEmpty(emptyBox), true)
   })
+  it('should hydrate correctly', () => {
+    equal(hydrate(box), {kind:'success', payload:'foo'})
+  })
 })
 
 describe('failure', () => {
@@ -59,6 +63,9 @@ describe('failure', () => {
   it('should have the correct meta', () => {
     equal(meta(error), undefined)
   })
+  it('should hydrate correctly', () => {
+    equal(hydrate(error), {kind:'failure', payload:'bad'})
+  })
 })
 
 describe('empty', () => {
@@ -77,6 +84,9 @@ describe('empty', () => {
   })
   it('should have the correct meta', () => {
     equal(meta(missing), 'meta')
+  })
+  it('should hydrate correctly', () => {
+    equal(hydrate(missing), {kind:'empty', meta:'meta'})
   })
 })
 
