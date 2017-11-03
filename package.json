@@ -1,6 +1,6 @@
 {
-  "name": "failables",
-  "version": "1.0.2",
+  "name": "@pheasantplucker/failables",
+  "version": "1.0.3",
   "description": "to protect against null and throwing errors",
   "main": "src/failable.js",
   "scripts": {
