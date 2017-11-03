@@ -17,9 +17,9 @@ const success = (payload, meta) => {
 const failure = (payload, meta) => [PROTOCOL_V1, FAILURE, payload, meta]
 const empty = meta => [PROTOCOL_V1, EMPTY, undefined, meta]
 
-const isSuccess = f => kind(f) === SUCCESS
-const isFailure = f => kind(f) === FAILURE
-const isEmpty = f => kind(f) === EMPTY
+const isSuccess = f => Array.isArray(f) && kind(f) === SUCCESS
+const isFailure = f => Array.isArray(f) && kind(f) === FAILURE
+const isEmpty = f => Array.isArray(f) && kind(f) === EMPTY
 const isFailable = f => {
   if (protocolVersion(f) === PROTOCOL_V1) {
     if (isSuccess(f) || isFailure(f) || isEmpty(f)) {

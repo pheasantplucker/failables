@@ -111,6 +111,9 @@ describe('isFailable', () => {
   })
   it('should fail a non-array', () => {
     equal(isFailable({foo: 'bar'}), false)
+    equal(isFailure(undefined), false)
+    equal(isSuccess('s'), false)
+    equal(isEmpty(7), false)
   })
   it('should fail a non-failable array', () => {
     equal(isFailable([4, 5, 6]), false)
