@@ -1,9 +1,9 @@
-const equal = require("assert").deepEqual
+const equal = require('assert').deepEqual
 
 const SUCCESS = 0
 const FAILURE = 1
 const EMPTY = 2
-const PROTOCOL_V1 = "fv1"
+const PROTOCOL_V1 = 'fv1'
 
 const protocolVersion = f => f[0]
 const kind = f => f[1]
@@ -65,13 +65,13 @@ const clean = o => {
 const kindString = f => {
   switch (kind(f)) {
     case SUCCESS:
-      return "success"
+      return 'success'
     case FAILURE:
-      return "failure"
+      return 'failure'
     case EMPTY:
-      return "empty"
+      return 'empty'
     default:
-      return "unknown"
+      return 'unknown'
   }
 }
 
@@ -79,7 +79,7 @@ const hydrate = f =>
   clean({
     kind: kindString(f),
     payload: payload(f),
-    meta: meta(f)
+    meta: meta(f),
   })
 
 module.exports = {
@@ -99,5 +99,5 @@ module.exports = {
   anyFailed,
   firstFailure,
   makeItFailable,
-  hydrate
+  hydrate,
 }

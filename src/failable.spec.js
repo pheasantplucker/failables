@@ -10,14 +10,13 @@ const {
   isFailable,
   payload,
   meta,
-  kind,
   assertSuccess,
   assertFailure,
   assertEmpty,
   anyFailed,
   firstFailure,
   makeItFailable,
-  hydrate
+  hydrate,
 } = require('./failable')
 
 describe('success', () => {
@@ -42,7 +41,7 @@ describe('success', () => {
     equal(isEmpty(emptyBox), true)
   })
   it('should hydrate correctly', () => {
-    equal(hydrate(box), {kind:'success', payload:'foo'})
+    equal(hydrate(box), { kind: 'success', payload: 'foo' })
   })
 })
 
@@ -64,7 +63,7 @@ describe('failure', () => {
     equal(meta(error), undefined)
   })
   it('should hydrate correctly', () => {
-    equal(hydrate(error), {kind:'failure', payload:'bad'})
+    equal(hydrate(error), { kind: 'failure', payload: 'bad' })
   })
 })
 
@@ -86,7 +85,7 @@ describe('empty', () => {
     equal(meta(missing), 'meta')
   })
   it('should hydrate correctly', () => {
-    equal(hydrate(missing), {kind:'empty', meta:'meta'})
+    equal(hydrate(missing), { kind: 'empty', meta: 'meta' })
   })
 })
 
@@ -110,7 +109,7 @@ describe('isFailable', () => {
     equal(isFailable(empty()), true)
   })
   it('should fail a non-array', () => {
-    equal(isFailable({foo: 'bar'}), false)
+    equal(isFailable({ foo: 'bar' }), false)
     equal(isFailure(undefined), false)
     equal(isSuccess('s'), false)
     equal(isEmpty(7), false)
@@ -204,7 +203,7 @@ describe('makeItFailable', () => {
     equal(result, expected)
   })
 
-  it('should return a failable if the fn throws an error', async function () {
+  it('should return a failable if the fn throws an error', async function() {
     const testFn = () => Promise.reject('no work')
     const failableFailure = makeItFailable(testFn)
     const result = await failableFailure()
