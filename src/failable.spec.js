@@ -69,8 +69,8 @@ describe('failure', () => {
 
 describe('empty', () => {
   const missing = empty('meta')
-  it('should not be a success', () => {
-    equal(isSuccess(missing), false)
+  it('should be a success', () => {
+    equal(isSuccess(missing), true)
   })
   it('should not be a failure', () => {
     equal(isFailure(missing), false)
@@ -126,8 +126,8 @@ describe('assertSuccess', () => {
   it('should fail failure', () => {
     throws(() => assertSuccess(failure()))
   })
-  it('should fail empty', () => {
-    throws(() => assertSuccess(empty()))
+  it('should pass empty', () => {
+    assertSuccess(empty())
   })
   it('should pass success with correct payload', () => {
     assertSuccess(success('foo'), 'foo')
