@@ -2,11 +2,13 @@
   "name": "@pheasantplucker/failables",
   "version": "2.0.3",
   "description": "to protect against null and throwing errors",
-  "main": "src/failable.js",
+  "main": "./build/failable.js",
   "scripts": {
     "test": "jest",
     "lint": "esw .eslintrc.js src/ lib/ tests/ -w --fix --ignore-pattern !.eslintrc.js",
-    "deploy": "./deploy.sh"
+    "deploy": "./deploy.sh",
+    "main": "./build/failable.js",
+    "build": "babel src --out-dir build"
   },
   "repository": {
     "type": "git",
@@ -29,6 +31,8 @@
     "eslint-watch": "^3.1.3",
     "jest": "^21.2.1",
     "prettier": "^1.7.4",
-    "prettier-eslint": "^8.2.1"
+    "prettier-eslint": "^8.2.1",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
   }
 }
