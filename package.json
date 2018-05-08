@@ -1,5 +1,5 @@
 {
-  "name": "@pheasantplucker/failables",
+  "name": "@pheasantplucker/failables-node6",
   "version": "2.0.3",
   "description": "to protect against null and throwing errors",
   "main": "./build/failable.js",
