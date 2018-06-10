@@ -35,7 +35,7 @@ const firstFailure = l => l.filter(isFailure)[0]
 
 const assertSuccess = (f, p) => {
   equal(isSuccess(f), true)
-  if (p) equal(payload(f), p)
+  if (p !== undefined) equal(payload(f), p)
 }
 
 const assertFailure = (f, p) => {

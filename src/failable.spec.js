@@ -135,6 +135,12 @@ describe('assertSuccess', () => {
   it('should fail success with wrong payload', () => {
     throws(() => assertSuccess(success('foo'), 'bar'))
   })
+  it('should pass success with correct boolean payload', () => {
+    assertSuccess(success(true), true)
+  })
+  it('should fail success with wrong payload', () => {
+    throws(() => assertSuccess(success(true), false))
+  })
 })
 
 describe('assertFailure', () => {
