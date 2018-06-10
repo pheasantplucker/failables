@@ -140,6 +140,7 @@ describe('assertSuccess', () => {
   })
   it('should fail success with wrong payload', () => {
     throws(() => assertSuccess(success(true), false))
+    throws(() => assertSuccess(success(false), true))
   })
 })
 
