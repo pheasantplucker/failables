@@ -40,7 +40,7 @@ const assertSuccess = (f, p) => {
 
 const assertFailure = (f, p) => {
   equal(isFailure(f), true)
-  if (p) equal(payload(f), p)
+  if (p !== undefined) equal(payload(f), p)
 }
 
 const assertEmpty = f => equal(isEmpty(f), true)

@@ -138,7 +138,7 @@ describe('assertSuccess', () => {
   it('should pass success with correct boolean payload', () => {
     assertSuccess(success(true), true)
   })
-  it('should fail success with wrong payload', () => {
+  it('should fail success with wrong boolean payload', () => {
     throws(() => assertSuccess(success(true), false))
     throws(() => assertSuccess(success(false), true))
   })
@@ -159,6 +159,10 @@ describe('assertFailure', () => {
   })
   it('should fail failure with wrong payload', () => {
     throws(() => assertFailure(failure('foo'), 'bar'))
+  })
+  it('should fail failure with wrong boolean payload', () => {
+    throws(() => assertFailure(failure(true), false))
+    throws(() => assertFailure(failure(false), true))
   })
 })
 
