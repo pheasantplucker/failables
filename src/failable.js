@@ -34,16 +34,16 @@ const anyFailed = l => l.filter(isFailure).length > 0
 const firstFailure = l => l.filter(isFailure)[0]
 
 const assertSuccess = (f, p) => {
-  equal(isSuccess(f), true)
+  equal(isSuccess(f), true, f)
   if (p !== undefined) equal(payload(f), p)
 }
 
 const assertFailure = (f, p) => {
-  equal(isFailure(f), true)
+  equal(isFailure(f), true, f)
   if (p !== undefined) equal(payload(f), p)
 }
 
-const assertEmpty = f => equal(isEmpty(f), true)
+const assertEmpty = f => equal(isEmpty(f), true, f)
 
 const makeItFailable = fn => {
   return async (...args) => {
