@@ -54,8 +54,11 @@ That's all there is to it.
 ## assertions
 ```js
   assertSuccess(failable, payload)        // assert that the failable is success
-  assertSuccessWhich(predicate, failable) // assert that the failable is success and its payload satisfies the predicate
-  assertSuccessTyped(type, failable)      // assert that the failable is success and the payload has the named type ('string', 'number', 'object', 'boolean')
+  assertSuccessWhich(predicate, failable) // assert that the failable is success
+                                          // and its payload satisfies the predicate
+  assertSuccessTyped(type, failable)      // assert that the failable is success
+                                          // and the payload has the named type
+                                          // ('string', 'number', 'object', 'boolean')
   assertFailure(failable, payload)        // assert that the failable is failure
   assertEmpty(failable)                   // assert that the failable is empty
 ```
