@@ -47,17 +47,17 @@ That's all there is to it.
 ```
 ## list operations
 ```js
-  anyFailed(list)    // whether any in the list failed
-  firstFailure(list) // the first failure in the list
+  anyFailed(list)            // whether any in the list failed
+  firstFailure(list)         // the first failure in the list
   extractPayloads(failables) // extracts the payloads from a list of failables
 ```
 ## assertions
 ```js
-  assertSuccess(failable, payload) // assert that the failable is success
+  assertSuccess(failable, payload)        // assert that the failable is success
   assertSuccessWhich(predicate, failable) // assert that the failable is success and its payload satisfies the predicate
   assertSuccessTyped(type, failable) // assert that the failable is success and the payload has the named type ('string', 'number', 'object', 'boolean')
-  assertFailure(failable, payload) // assert that the failable is failure
-  assertEmpty(failable)            // assert that the failable is empty
+  assertFailure(failable, payload)   // assert that the failable is failure
+  assertEmpty(failable)              // assert that the failable is empty
 ```
 ## utility
 ```js
