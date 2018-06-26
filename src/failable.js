@@ -33,10 +33,24 @@ const isFailable = f => {
 const anyFailed = l => l.filter(isFailure).length > 0
 const firstFailure = l => l.filter(isFailure)[0]
 
-const assertSuccess = (f, p) => {
+const assertSuccessWhich = (t, f) => {
   equal(isSuccess(f), true, JSON.stringify(hydrate(f)))
-  if (p !== undefined) equal(payload(f), p)
+  equal(t(payload(f)), true, JSON.stringify(hydrate(f)))
 }
+
+const same = (a, b) => {
+  try {
+    equal(a, b)
+    return true
+  } catch (e) {
+    return false
+  }
+}
+
+const assertSuccess = (f, p) =>
+  assertSuccessWhich(x => p === undefined || same(x, p), f)
+
+const assertSuccessTyped = (t, f) => assertSuccessWhich(p => typeof p === t, f)
 
 const assertFailure = (f, p) => {
   equal(isFailure(f), true, JSON.stringify(hydrate(f)))
@@ -44,6 +58,8 @@ const assertFailure = (f, p) => {
 }
 
 const assertEmpty = f => equal(isEmpty(f), true, JSON.stringify(hydrate(f)))
+
+const extractPayloads = results => results.map(payload)
 
 const makeItFailable = fn => {
   return async (...args) => {
@@ -95,10 +111,13 @@ module.exports = {
   isEmpty,
   isFailable,
   assertSuccess,
+  assertSuccessWhich,
+  assertSuccessTyped,
   assertFailure,
   assertEmpty,
   anyFailed,
   firstFailure,
   makeItFailable,
+  extractPayloads,
   hydrate,
 }

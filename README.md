@@ -19,7 +19,7 @@ That's all there is to it.
   const result4 = failure('trouble!', { userId: 'fred' })  // all failables can include metadata
   const result5 = empty() // empty failables have no payload
   const result6 = empty({ userId: 'fred' })  // for empty, the first (optional) parameter is metadata
-  
+
   const answer = payload(result1) // extract the payload
   const metadata = meta(result2) // extract the metadata
   if (isFailure(result4)) return result4 // a common pattern: if a failure is encountered in a
@@ -49,10 +49,13 @@ That's all there is to it.
 ```js
   anyFailed(list)    // whether any in the list failed
   firstFailure(list) // the first failure in the list
+  extractPayloads(failables) // extracts the payloads from a list of failables
 ```
 ## assertions
 ```js
   assertSuccess(failable, payload) // assert that the failable is success
+  assertSuccessWhich(predicate, failable) // assert that the failable is success and its payload satisfies the predicate
+  assertSuccessTyped(type, failable) // assert that the failable is success and the payload has the named type ('string', 'number', 'object', 'boolean')
   assertFailure(failable, payload) // assert that the failable is failure
   assertEmpty(failable)            // assert that the failable is empty
 ```
@@ -60,4 +63,3 @@ That's all there is to it.
 ```js
   hydrate(failable) // returns an object with kind, payload, and meta fields
 ```
-

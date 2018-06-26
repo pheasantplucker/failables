@@ -11,10 +11,13 @@ const {
   payload,
   meta,
   assertSuccess,
+  assertSuccessWhich,
+  assertSuccessTyped,
   assertFailure,
   assertEmpty,
   anyFailed,
   firstFailure,
+  extractPayloads,
   makeItFailable,
   hydrate,
 } = require('./failable')
@@ -144,6 +147,30 @@ describe('assertSuccess', () => {
   })
 })
 
+describe(`assertSuccessWhich`, () => {
+  it('should fail failure', () => {
+    throws(() => assertSuccessWhich(p => true, failure()))
+  })
+  it('should pass success with correct payload', () => {
+    assertSuccessWhich(p => p.length === 3, success('foo'))
+  })
+  it('should fail success with wrong payload', () => {
+    throws(() => assertSuccessWhich(p => p.length === 4, success('foo')))
+  })
+})
+
+describe(`assertSuccessTyped`, () => {
+  it('should fail failure', () => {
+    throws(() => assertSuccessTyped('string', failure()))
+  })
+  it('should pass success with correct payload', () => {
+    assertSuccessTyped('string', success('foo'))
+  })
+  it('should fail success with wrong payload', () => {
+    throws(() => assertSuccessTyped('number', success('foo')))
+  })
+})
+
 describe('assertFailure', () => {
   it('should fail success', () => {
     throws(() => assertFailure(success('')))
@@ -197,6 +224,13 @@ describe('firstFailure', () => {
   })
 })
 
+describe('extractPayloads', () => {
+  it(`should extract the payloads`, () => {
+    const results = [success('one'), success('two')]
+    const payloads = ['one', 'two']
+    equal(extractPayloads(results), payloads)
+  })
+})
 describe('makeItFailable', () => {
   it('should return failable when fn returns one', async () => {
     const expected = success('hello')
