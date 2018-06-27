@@ -5,7 +5,7 @@
   "main": "src/failable.js",
   "scripts": {
     "test": "jest",
-    "lint": "esw .eslintrc.js src/ lib/ tests/ -w --fix --ignore-pattern !.eslintrc.js",
+    "lint": "esw .eslintrc.js src/ -w --fix --ignore-pattern !.eslintrc.js",
     "deploy": "./deploy.sh"
   },
   "repository": {
@@ -23,11 +23,11 @@
   },
   "homepage": "https://github.com/pheasantpluckers/failables#readme",
   "devDependencies": {
-    "eslint": "^4.19.1",
+    "eslint": "^5.0.1",
     "eslint-plugin-jest": "^21.17.0",
-    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-prettier": "^2.6.1",
     "eslint-watch": "^3.1.5",
-    "jest": "^23.1.0",
-    "prettier": "^1.13.5"
+    "jest": "^23.2.0",
+    "prettier": "^1.13.6"
   }
 }
