@@ -61,6 +61,11 @@ const assertEmpty = f => equal(isEmpty(f), true, JSON.stringify(hydrate(f)))
 
 const extractPayloads = results => results.map(payload)
 
+const flattenResults = results => {
+  if (anyFailed(results)) return firstFailure(results)
+  return success(extractPayloads(results))
+}
+
 const makeItFailable = fn => {
   return async (...args) => {
     try {
@@ -119,5 +124,6 @@ module.exports = {
   firstFailure,
   makeItFailable,
   extractPayloads,
+  flattenResults,
   hydrate,
 }

@@ -18,6 +18,7 @@ const {
   anyFailed,
   firstFailure,
   extractPayloads,
+  flattenResults,
   makeItFailable,
   hydrate,
 } = require('./failable')
@@ -231,6 +232,27 @@ describe('extractPayloads', () => {
     equal(extractPayloads(results), payloads)
   })
 })
+
+describe(`flattenResults`, () => {
+  const p1 = { pay: 'load' }
+  const p2 = { payl: 'oad' }
+  const s1 = success(p1)
+  const s2 = success(p2)
+  const f1 = failure('rats')
+  it(`should return the first failure if any`, () => {
+    const flattened = flattenResults([s1, f1])
+    assertFailure(flattened, 'rats')
+  })
+  it(`should return success around an empty list if no results`, () => {
+    const flattened = flattenResults([])
+    assertSuccess(flattened, [])
+  })
+  it(`should return success with a list of payloads given a list of successes`, () => {
+    const flattened = flattenResults([s1, s2])
+    assertSuccess(flattened, [p1, p2])
+  })
+})
+
 describe('makeItFailable', () => {
   it('should return failable when fn returns one', async () => {
     const expected = success('hello')

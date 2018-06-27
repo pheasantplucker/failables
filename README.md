@@ -50,6 +50,7 @@ That's all there is to it.
   anyFailed(list)            // whether any in the list failed
   firstFailure(list)         // the first failure in the list
   extractPayloads(failables) // extracts the payloads from a list of failables
+  flattenResults(list)       // return the first failure, if any, or the extracted payloads
 ```
 ## assertions
 ```js
