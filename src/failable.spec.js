@@ -155,6 +155,12 @@ describe(`assertSuccessWhich`, () => {
   it('should pass success with correct payload', () => {
     assertSuccessWhich(p => p.length === 3, success('foo'))
   })
+  it('should not choke on circular object', () => {
+    var circle = {}
+    circle.a = circle
+    assertSuccessWhich(p => true, success(circle))
+    assertSuccess(success(circle))
+  })
   it('should fail success with wrong payload', () => {
     throws(() => assertSuccessWhich(p => p.length === 4, success('foo')))
   })
