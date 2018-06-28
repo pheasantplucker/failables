@@ -1,4 +1,5 @@
 const equal = require('assert').deepEqual
+const { fail } = require('assert')
 const stringify = require('json-stringify-safe')
 
 const SUCCESS = 0
@@ -35,8 +36,8 @@ const anyFailed = l => l.filter(isFailure).length > 0
 const firstFailure = l => l.filter(isFailure)[0]
 
 const assertSuccessWhich = (t, f) => {
-  equal(isSuccess(f), true, stringify(hydrate(f)))
-  equal(t(payload(f)), true, stringify(hydrate(f)))
+  if (!isSuccess(f)) fail(stringify(hydrate(f)))
+  if (!t(payload(f))) fail(stringify(hydrate(f)))
 }
 
 const same = (a, b) => {
@@ -54,11 +55,13 @@ const assertSuccess = (f, p) =>
 const assertSuccessTyped = (t, f) => assertSuccessWhich(p => typeof p === t, f)
 
 const assertFailure = (f, p) => {
-  equal(isFailure(f), true, stringify(hydrate(f)))
+  if (!isFailure(f)) fail(stringify(hydrate(f)))
   if (p !== undefined) equal(payload(f), p)
 }
 
-const assertEmpty = f => equal(isEmpty(f), true, stringify(hydrate(f)))
+const assertEmpty = f => {
+  if (!isEmpty(f)) fail(stringify(hydrate(f)))
+}
 
 const extractPayloads = results => results.map(payload)
 
